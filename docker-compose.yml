@@ -1,0 +1,68 @@
+version: '3.4'
+services:
+  python-django:
+    build:
+      context: ./django_data
+    command: bash -c '
+      django-admin startproject '\''${DJANGO_APP_NAME}'\'' &&
+      echo "STATIC_ROOT = '\''/code/static'\''" >> /code/${DJANGO_APP_NAME}/${DJANGO_APP_NAME}/settings.py &&
+      echo "MEDIA_ROOT = '\''/code/media'\''" >> /code/${DJANGO_APP_NAME}/${DJANGO_APP_NAME}/settings.py &&
+      echo "MEDIA_URL = '\''/media/'\''" >> /code/${DJANGO_APP_NAME}/${DJANGO_APP_NAME}/settings.py ||
+      echo "Pass django-admin startproject ${DJANGO_APP_NAME} "  &&
+      gunicorn ${DJANGO_APP_NAME}.wsgi:application --chdir /code/${DJANGO_APP_NAME} -w 2 -b :${DJANGO_PORT} ${GUNICORN_CMD_ARGS}'
+    ports:
+      - ${DJANGO_OUTSIDE_PORT}:${DJANGO_PORT}
+      - ${DJANGO_DEBUG_PORT}:${DJANGO_DEBUG_PORT}
+    depends_on:
+      - mariadb
+    volumes:
+      - ./django_data/src:/code
+    restart: always
+
+  nginx:
+    image: nginx:latest
+    build:
+      context: ./nginx_data
+      args:
+        APP_NAME: ${DJANGO_APP_NAME}
+        APP_PORT: ${DJANGO_PORT}
+        LISTEN_PORT: ${NGINX_OUTSIDE_PORT}
+    environment:
+      - VIRTUAL_HOST=${VIRTUAL_HOST}
+      - LETSENCRYPT_HOST=${LETSENCRYPT_HOST}
+      - LETSENCRYPT_EMAIL=${LETSENCRYPT_EMAIL}
+    ports:
+      - ${NGINX_OUTSIDE_PORT}:${NGINX_PORT}
+    volumes:
+      - ./django_data/src/static:/static
+      - ./django_data/src/media:/media
+    depends_on:
+      - python-django
+    restart: always
+
+  mariadb:
+    image: 'mariadb:10.0.33'
+    command:
+      [
+        '--character-set-server=utf8mb4',
+        '--collation-server=utf8mb4_unicode_ci',
+      ]
+    environment:
+      - ALLOW_EMPTY_PASSWORD=no
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - TZ=${MYSQL_TIMEZONE}
+    volumes:
+      - './mariadb_data:/var/lib/mysql'
+    restart: always
+
+volumes:
+  mariadb_data:
+    driver: local
+
+networks:
+  default:
+    external:
+      name: webproxy
