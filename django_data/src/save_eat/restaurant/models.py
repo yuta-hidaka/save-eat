@@ -189,9 +189,9 @@ class Restaurant(models.Model):
         on_delete=models.CASCADE,
         verbose_name='市区町村'
     )
-    street_name = models.CharField(
-        default='',
-        max_length=256,
+    street_name = models.ForeignKey(
+        StreetName,
+        on_delete=models.CASCADE,
         verbose_name='町名'
     )
     street_num = models.CharField(
@@ -227,6 +227,17 @@ class Restaurant(models.Model):
         default='',
         max_length=500,
         verbose_name='寄付の特典'
+    )
+    phot = models.ImageField(
+        upload_to='media',
+        default=None,
+        verbose_name='お店の写真'
+    )
+    bank_account = models.ForeignKey(
+        BankAccount,
+        default=None,
+        on_delete=models.CASCADE,
+        verbose_name='銀行口座'
     )
     created_at = models.DateTimeField(
         auto_now_add=True
