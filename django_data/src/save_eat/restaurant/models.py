@@ -96,6 +96,24 @@ class ZipCode(models.Model):
         max_length=256,
         verbose_name='郵便番号'
     )
+    prefecture = models.ForeignKey(
+        Prefecture,
+        default=None,
+        on_delete=models.CASCADE,
+        verbose_name='都道府県'
+    )
+    municipalities = models.ForeignKey(
+        Municipalities,
+        default=None,
+        on_delete=models.CASCADE,
+        verbose_name='市区町村'
+    )
+    street_name = models.ForeignKey(
+        StreetName,
+        default=None,
+        on_delete=models.CASCADE,
+        verbose_name='町名'
+    )
     created_at = models.DateTimeField(
         auto_now_add=True
     )
@@ -179,21 +197,6 @@ class Restaurant(models.Model):
         on_delete=models.CASCADE,
         verbose_name='郵便番号'
     )
-    prefecture = models.ForeignKey(
-        Prefecture,
-        on_delete=models.CASCADE,
-        verbose_name='都道府県'
-    )
-    municipalities = models.ForeignKey(
-        Municipalities,
-        on_delete=models.CASCADE,
-        verbose_name='市区町村'
-    )
-    street_name = models.ForeignKey(
-        StreetName,
-        on_delete=models.CASCADE,
-        verbose_name='町名'
-    )
     street_num = models.CharField(
         default='',
         max_length=256,
@@ -218,7 +221,7 @@ class Restaurant(models.Model):
         max_length=256,
         verbose_name='メールアドレス'
     )
-    commnet = models.TextField(
+    comment = models.TextField(
         default='',
         max_length=500,
         verbose_name='お店からのコメント'

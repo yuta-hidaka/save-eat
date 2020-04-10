@@ -23,6 +23,10 @@ class StreetNameSerializer(serializers.ModelSerializer):
 
 
 class ZipCodeSerializer(serializers.ModelSerializer):
+    prefecture = PrefectureSerializer(read_only=True)
+    municipalities = MunicipalitiesSerializer(read_only=True)
+    street_name = StreetNameSerializer(read_only=True)
+
     class Meta:
         model = ZipCode
         fields = '__all__'
@@ -37,9 +41,6 @@ class BankAccountSerializer(serializers.ModelSerializer):
 class RestaurantSerializer(serializers.ModelSerializer):
     bank_account = BankAccountSerializer(read_only=True)
     zip_code = ZipCodeSerializer(read_only=True)
-    prefecture = PrefectureSerializer(read_only=True)
-    municipalities = MunicipalitiesSerializer(read_only=True)
-    street_name = StreetNameSerializer(read_only=True)
 
     class Meta:
         model = Restaurant

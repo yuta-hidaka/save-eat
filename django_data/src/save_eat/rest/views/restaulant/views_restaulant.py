@@ -77,8 +77,11 @@ class BankAccountList(generics.ListCreateAPIView):
 
 # -----------------------------------------------------------------------
 class RestaurantList(generics.ListCreateAPIView):
-    search_fields = '__all__'
-    filter_fields = '__all__'
+    search_fields = [
+        'name', 'owner', 'zip_code__prefecture__name', 'zip_code__municipalities__name',
+        'comment', 'benefits', 'email'
+    ]
+    filter_fields = ['name', 'owner']
     filter_backends = (filters.SearchFilter,)
     queryset = Restaurant.objects.all()
     serializer_class = RestaurantSerializer
