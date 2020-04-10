@@ -37,9 +37,32 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'restaurant.apps.RestaurantConfig'
+    # apps
+    'restaurant.apps.RestaurantConfig',
+    'rest.apps.RestConfig',
+    #  addtional
+    'corsheaders',
+    'rest_framework',
+    # 'rest_framework.authtoken',
+    # 'rest_auth',
+    # 'rest_auth.registration',
+    # 'allauth',
+    # 'allauth.account',
 ]
 
+# Pagination
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 15
+}
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost',
+]
+CORS_ORIGIN_REGEX_WHITELIST = [
+    'http://localhost',
+]
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

@@ -58,7 +58,7 @@ class Municipalities(models.Model):
 
 
 # 町名
-class streetName(models.Model):
+class StreetName(models.Model):
     municipalities_id = models.UUIDField(
         primary_key=True,
         default=uuid.uuid4,
@@ -85,7 +85,7 @@ class streetName(models.Model):
 
 
 # 郵便番号
-class zipCode(models.Model):
+class ZipCode(models.Model):
     zip_code_id = models.UUIDField(
         primary_key=True,
         default=uuid.uuid4,
@@ -159,8 +159,8 @@ class BankAccount(models.Model):
 
 
 # 店舗情報
-class Restaurante(models.Model):
-    restaurante_id = models.UUIDField(
+class Restaurant(models.Model):
+    restaurant_id = models.UUIDField(
         primary_key=True,
         default=uuid.uuid4,
         editable=False
@@ -169,8 +169,13 @@ class Restaurante(models.Model):
         max_length=256,
         verbose_name='レストラン名'
     )
+    owner = models.CharField(
+        default='',
+        max_length=256,
+        verbose_name='オーナ名'
+    )
     zip_code = models.ForeignKey(
-        zipCode,
+        ZipCode,
         on_delete=models.CASCADE,
         verbose_name='郵便番号'
     )
@@ -231,7 +236,7 @@ class Restaurante(models.Model):
     )
 
     class Meta:
-        db_table = 'restaurant_restaurante'
+        db_table = 'restaurant_restaurant'
         verbose_name_plural = '店舗情報'
 
     def __str__(self):
