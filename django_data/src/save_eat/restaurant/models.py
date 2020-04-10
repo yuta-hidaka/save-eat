@@ -4,14 +4,27 @@ import uuid
 
 
 # 都道府県
-
-
 class Prefecture(models.Model):
     prefecture_id = models.UUIDField(
-        primary_key=True, default=uuid.uuid4, editable=False)
-    name = models.CharField(max_length=255)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False
+    )
+    name = models.CharField(
+        default='',
+        max_length=256,
+        verbose_name='都道府県'
+    )
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
+    updated_at = models.DateTimeField(
+        auto_now=True
+    )
+
+    class Meta:
+        db_table = 'restaurant_prefecture'
+        verbose_name_plural = '都道府県'
 
     def __str__(self):
         return self.name
@@ -20,63 +33,206 @@ class Prefecture(models.Model):
 # 市区町村
 class Municipalities(models.Model):
     municipalities_id = models.UUIDField(
-        primary_key=True, default=uuid.uuid4, editable=False)
-    name = models.CharField(max_length=255)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False
+    )
+    name = models.CharField(
+        default='',
+        max_length=256,
+        verbose_name='市区町村'
+    )
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
+    updated_at = models.DateTimeField(
+        auto_now=True
+    )
+
+    class Meta:
+        db_table = 'restaurant_municipalities'
+        verbose_name_plural = '市区町村'
 
     def __str__(self):
         return self.name
 
 
 # 町名
-class Municipalities(models.Model):
+class streetName(models.Model):
     municipalities_id = models.UUIDField(
-        primary_key=True, default=uuid.uuid4, editable=False)
-    name = models.CharField(max_length=255)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False
+    )
+    name = models.CharField(
+        default='',
+        max_length=256,
+        verbose_name='町名'
+    )
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
+    updated_at = models.DateTimeField(
+        auto_now=True
+    )
+
+    class Meta:
+        db_table = 'restaurant_street_name'
+        verbose_name_plural = '町名'
 
     def __str__(self):
         return self.name
+
+
+# 郵便番号
+class zipCode(models.Model):
+    zip_code_id = models.UUIDField(
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False
+    )
+    zip_code = models.CharField(
+        default='',
+        max_length=256,
+        verbose_name='郵便番号'
+    )
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
+    updated_at = models.DateTimeField(
+        auto_now=True
+    )
+
+    class Meta:
+        db_table = 'restaurant_zip_code'
+        verbose_name_plural = '郵便番号'
+
+    def __str__(self):
+        return self.zip_code
+
 
 # 口座情報
-
-
 class BankAccount(models.Model):
     bank_account_id = models.UUIDField(
-        primary_key=True, default=uuid.uuid4, editable=False)
-    bank_name = models.CharField(max_length=255)
-    account_name = models.CharField(max_length=255)
-    account_num = models.CharField(max_length=255)
-    account_type = models.CharField(max_length=255)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False
+    )
+    bank_name = models.CharField(
+        default='',
+        max_length=256,
+        verbose_name='銀行名'
+    )
+    branch = models.CharField(
+        default='',
+        max_length=256,
+        verbose_name='支店名'
+    )
+    account_name = models.CharField(
+        default='',
+        max_length=256,
+        verbose_name='口座人名義'
+    )
+    account_num = models.CharField(
+        default='',
+        max_length=256,
+        verbose_name='口座番号'
+    )
+    account_type = models.CharField(
+        default='',
+        max_length=256,
+        verbose_name='口座種別'
+    )
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
+    updated_at = models.DateTimeField(
+        auto_now=True
+    )
+
+    class Meta:
+        db_table = 'restaurant_bank_account'
+        verbose_name_plural = '口座情報'
+
+    def __str__(self):
+        return self.account_name
+
+
+# 店舗情報
+class Restaurante(models.Model):
+    restaurante_id = models.UUIDField(
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False
+    )
+    name = models.CharField(
+        max_length=256,
+        verbose_name='レストラン名'
+    )
+    zip_code = models.ForeignKey(
+        zipCode,
+        on_delete=models.CASCADE,
+        verbose_name='郵便番号'
+    )
+    prefecture = models.ForeignKey(
+        Prefecture,
+        on_delete=models.CASCADE,
+        verbose_name='都道府県'
+    )
+    municipalities = models.ForeignKey(
+        Municipalities,
+        on_delete=models.CASCADE,
+        verbose_name='市区町村'
+    )
+    street_name = models.CharField(
+        default='',
+        max_length=256,
+        verbose_name='町名'
+    )
+    street_num = models.CharField(
+        default='',
+        max_length=256,
+        verbose_name='番地'
+    )
+    bldg = models.CharField(
+        default='',
+        max_length=256,
+        verbose_name='建物名'
+    )
+    web_url = models.URLField(
+        default='',
+        verbose_name='ウェブサイトURL'
+    )
+    phone = models.CharField(
+        default='',
+        max_length=256,
+        verbose_name='電話番号'
+    )
+    email = models.EmailField(
+        default='',
+        max_length=256,
+        verbose_name='メールアドレス'
+    )
+    commnet = models.TextField(
+        default='',
+        max_length=500,
+        verbose_name='お店からのコメント'
+    )
+    benefits = models.TextField(
+        default='',
+        max_length=500,
+        verbose_name='寄付の特典'
+    )
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
+    updated_at = models.DateTimeField(
+        auto_now=True
+    )
+
+    class Meta:
+        db_table = 'restaurant_restaurante'
+        verbose_name_plural = '店舗情報'
 
     def __str__(self):
         return self.name
-
-# street_name
-# street_name_id
-# name
-
-# bank_account_id
-# bank_account
-# bank_name
-# account_name
-# account_num
-# account_type
-
-
-# restaurante_info
-# restaurante_info_id
-# name
-# zip_code
-# prefecture
-# municipalities
-# street_name
-# street_num
-# bldg
-# phone
-# commnet
-# benefits
