@@ -1,0 +1,32 @@
+{% extends "account/base.html" %}
+{% load i18n %}
+{% block head_title %}
+{% trans　"お店の情報を登録" %}
+{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row justify-content-md-center mt-5">
+        <div class="col-md-auto">
+            <div class="card bg-light mb-3" style="max-width: 25rem;">
+                <h5 class="card-header">お店の情報を登録</h5>
+                <div class="card-body">
+                    <div class="m-auto text-center">
+                    <form method="POST" action="" class="from" enctype="multipart/form-data">
+                        {% csrf_token %} {{ form.as_p }}
+                        {% if redirect_field_value %}
+                        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                        {% endif %}
+                        <button class="save btn btn-outline-primary" type="submit">
+                            情報を登録
+                        </button>
+                        </div>
+                    </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

@@ -42,11 +42,7 @@ services:
 
   mariadb:
     image: 'mariadb:10.0.33'
-    command:
-      [
-        '--character-set-server=utf8mb4',
-        '--collation-server=utf8mb4_unicode_ci',
-      ]
+    command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
     environment:
       - ALLOW_EMPTY_PASSWORD=no
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
@@ -57,6 +53,30 @@ services:
     volumes:
       - './mariadb_data:/var/lib/mysql'
     restart: always
+
+  # react:
+  #   build:
+  #     dockerfile: Dockerfile
+  #     context: ./react_data
+  #     args:
+  #       APP_NAME: ${REACT_APP_NAME}
+  #       APP_PORT: ${REACT_PORT}
+  #   environment:
+  #     - NODE_ENV=${REACT_NODE_ENV}
+  #   volumes:
+  #     - ./react_data:/usr/src/app
+  #   # command:
+  #   #   sh -c '
+  #   #   create-react-app ${REACT_APP_NAME} ||
+  #   #   echo "[warning] skip -> create-react-app ${REACT_APP_NAME}" &&
+  #   #   cd ${REACT_APP_NAME} &&
+  #   #   ${REACT_PORT} yarn start'
+  #     # bash -c 'create-react-app ${REACT_APP_NAME} || echo "[warning] skip -> create-react-app ${REACT_APP_NAME}" '
+  #     # command: sh -c "cd ${REACT_APP_NAME}"
+  #   ports:
+  #     - ${REACT_OUTSIDE_PORT}:${REACT_PORT}
+  #   restart: always
+    
 
 volumes:
   mariadb_data:

@@ -25,8 +25,18 @@ SECRET_KEY = '2=i&+0ot0wla5&u2l#af7psec2mt=$fi^v1ab6ks)*1op!f)9q'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['python-django']
-
+ALLOWED_HOSTS = ['python-django',
+                 ]
+# メール送信機能
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# メールサーバーへの接続設定
+EMAIL_HOST = 'smtp.muumuu-mail.com'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'info@bike-nenpi.com'
+EMAIL_HOST_PASSWORD = 'souldout322'
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
+DEFAULT_FROM_EMAIL = 'no-replay@bike-nenpi.com'
 
 # Application definition
 
@@ -36,13 +46,20 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'django.contrib.sites',
     'django.contrib.staticfiles',
     # apps
     'restaurant.apps.RestaurantConfig',
     'rest.apps.RestConfig',
+    'users.apps.UsersConfig',
     #  addtional
     'corsheaders',
     'rest_framework',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'bootstrap4',
+    'django_filters',
     # 'rest_framework.authtoken',
     # 'rest_auth',
     # 'rest_auth.registration',
@@ -52,16 +69,25 @@ INSTALLED_APPS = [
 
 # Pagination
 REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 15
+    'PAGE_SIZE': 12,
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.AnonRateThrottle',
+        'rest_framework.throttling.UserRateThrottle'
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '1000/day',
+        'user': '1000/day'
+    }
 }
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_WHITELIST = [
-    'http://localhost',
+    'http://localhost'
 ]
 CORS_ORIGIN_REGEX_WHITELIST = [
-    'http://localhost',
+    'http://localhost'
 ]
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -74,11 +100,16 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'save_eat.urls'
+# ログイン後トップページにリダイレクト
+LOGIN_REDIRECT_URL = '/'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates'),
+            os.path.join(BASE_DIR, 'templates', 'allauth')
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -86,11 +117,36 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # additional
+                'django.template.context_processors.request',
             ],
         },
     },
 ]
 
+AUTHENTICATION_BACKENDS = (
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+SITE_ID = 1
+AUTH_USER_MODEL = 'users.CustomUser'
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
+ACCOUNT_SESSION_REMEMBER = True
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_EMAIL_MAX_LENGTH = 190
+ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 10
+ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 86400
+ACCOUNT_LOGOUT_REDIRECT_URL = '/'
+ACCOUNT_EMAIL_SUBJECT_PREFIX = 'Save Eat'
+ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = '/'
+ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = '/accounts/'
+LOGIN_REDIRECT_URL = '/'
 WSGI_APPLICATION = 'save_eat.wsgi.application'
 
 
@@ -132,9 +188,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ja'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Tokyo'
 
 USE_I18N = True
 

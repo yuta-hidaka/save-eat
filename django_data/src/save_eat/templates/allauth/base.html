@@ -1,0 +1,116 @@
+{# Load the tag library #} {% load bootstrap4 %} {# Load CSS and JavaScript #}
+{% bootstrap_css %} {% bootstrap_javascript jquery='full' %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{% block head_title %}{% endblock %}</title>
+    {% block extra_head %} {% endblock %} {% load static %}
+    <script type="text/javascript" src="{% static 'js/common.js' %}"></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/common.css' %}"
+    />
+  </head>
+  <body
+    class="d-flex flex-column"
+    style="
+      font-family: 'Hiragino Kaku Gothic Pro', 'ヒラギノ角ゴ Pro W3', Meiryo,
+        メイリオ, Osaka, 'MS PGothic', arial, helvetica, sans-serif;
+    "
+  >
+    <div id="page-content" class="wrapper">
+      {% block body %}
+
+      <nav
+        class="navbar navbar-expand-lg navbar-dark"
+        style="background-color: #0d61a7;"
+      >
+        <a class="navbar-brand" href="/">
+          <img
+            src="/static/img/tray.svg"
+            width="30"
+            height="30"
+            class="d-inline-block align-top"
+            alt=""
+          />
+          Save Eat
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'restaurant:search' %}"
+                >支援先のお店を探す</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'restaurant:register' %}"
+                >お店を登録</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'restaurant:history' %}"
+                >投稿履歴</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'account_email' %}"
+                >メールアドレス変更</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'account_logout' %}"
+                >ログアウト</a
+              >
+            </li>
+            {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'restaurant:search' %}"
+                >支援先のお店を探す</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'restaurant:register' %}"
+                >お店を登録</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'account_signup' %}">会員登録</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'account_login' %}">ログイン</a>
+            </li>
+            {% endif %}
+          </ul>
+        </div>
+      </nav>
+      <main>
+        {% bootstrap_messages %}
+        {% block content %}
+        {% endblock %}
+        {% endblock %} 
+        {% block extra_body %}
+      </main>
+      {% endblock %}
+    </div>
+    <footer id="sticky-footer" class="">
+      <div class="text-center">
+        <small>Copyright &copy; Save Eat</small>
+      </div>
+    </footer>
+  </body>
+  <!-- <footer>© save eat</footer> -->
+</html>

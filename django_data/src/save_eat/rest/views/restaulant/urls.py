@@ -9,6 +9,11 @@ urlpatterns = [
         RestaurantList.as_view(),
         name='restaulant-list'
     ),
+    path(
+        'ro/',
+        RestaurantListReadOnly.as_view(),
+        name='restaulant-list-read-only'
+    ),
     # path(
     #     '<uuid:pk>/',
     #     RestaurantDetail.as_view(),
@@ -49,13 +54,13 @@ urlpatterns = [
     # ),
     # ---------------------------------------------------------
     path(
-        'zip-code/',
-        ZipCodeList.as_view(),
-        name='zip-code-list'
+        'address/',
+        AddressList.as_view(),
+        name='address-list'
     ),
     # path(
     #     'zip-code/<uuid:pk>/',
-    #     ZipCodeDetail.as_view(),
+    #     AddressDetail.as_view(),
     #     name='zip-code-detail'
     # ),
     # ---------------------------------------------------------
