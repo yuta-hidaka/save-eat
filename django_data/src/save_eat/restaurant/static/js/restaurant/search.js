@@ -1,6 +1,11 @@
 $(document).ready(function () {
   getData();
-  function getData() {
+  function getData(isReset) {
+    if (isReset) {
+      $('#nextPage').val(1);
+      $('.card-deck').remove();
+      console.log('gogog');
+    }
     // 検索文字列
     let serchText = $('#serchText').val();
     // 都道府県の絞込み
@@ -173,22 +178,14 @@ $(document).ready(function () {
 
   // 検索処理
   $('#serch').on('click', function () {
-    console.log('hi');
-    $('#getNextPage').css('display', '');
-    $('#nextPage').val(1);
-    $('#serchResult').empty();
-    getData();
+    getData(true);
   });
 
   // エンターでも反応する
   $(document).keypress(function (event) {
     var keycode = event.keyCode ? event.keyCode : event.which;
     if (keycode == '13') {
-      console.log('hifd');
-      $('#getNextPage').css('display', '');
-      $('#nextPage').val(1);
-      $('#serchResult').empty();
-      getData();
+      getData(true);
     }
   });
 

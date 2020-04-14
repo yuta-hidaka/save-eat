@@ -129,7 +129,7 @@ $(document).ready(function () {
                 '</div>'
             )
             .hide()
-            .fadeIn(2000);
+            .fadeIn(500);
         }
 
         if (data.next !== null) {

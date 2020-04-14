@@ -394,7 +394,7 @@ $(document).ready(function () {
             $('#serchResult')
               .append('<div class="card-deck">' + cardBody + '</div>')
               .hide()
-              .fadeIn(2000);
+              .fadeIn(500);
           }
 
           if (data.next !== null) {

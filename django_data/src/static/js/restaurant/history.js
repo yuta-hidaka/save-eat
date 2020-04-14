@@ -113,7 +113,7 @@ $(document).ready(function () {
                   '</div>'
               )
               .hide()
-              .fadeIn(250);
+              .fadeIn(500);
             cnt = 1;
             cardBody = '';
           } else {
@@ -139,7 +139,7 @@ $(document).ready(function () {
                 '</div>'
             )
             .hide()
-            .fadeIn(2000);
+            .fadeIn(500);
         }
 
         if (data.next !== null) {
