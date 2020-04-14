@@ -149,7 +149,7 @@ class Restaurant(models.Model):
     )
     name = models.CharField(
         max_length=100,
-        verbose_name='レストラン名<必須>'
+        verbose_name='お店の名前<必須>'
     )
     owner = models.CharField(
         default='',
