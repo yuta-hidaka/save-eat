@@ -35,7 +35,7 @@ $(document).ready(function () {
       );
 
       if (o.benefits) {
-        o.benefits = o.benefits.replace(new RegExp('\r?\n', 'g'));
+        o.benefits = o.benefits.replace(/(?:\r\n|\r|\n)/g, '<br>');
       } else {
         o.benefits = 'なし';
       }
@@ -45,7 +45,7 @@ $(document).ready(function () {
       $('#municipalities').html(o.address.municipalities.name);
       $('#limit').html(o.limit);
       $('#owner').html(o.owner);
-      $('#comment').html(o.comment.replace(new RegExp('\r?\n', 'g'), '<br />'));
+      $('#comment').html(o.comment.replace(/(?:\r\n|\r|\n)/g, '<br>'));
       $('#phot').attr('src', o.phot);
       $('#benefit').html(o.benefits);
       $('#LinkFacebook').attr('href', LinkFacebook);
