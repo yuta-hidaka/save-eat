@@ -244,6 +244,7 @@ $(document).ready(function () {
   }
 
   function createData(data, url) {
+    console.log(data);
     return new Promise((resolve, reject) => {
       $.ajax({
         url: '/rest/restaurant/' + url + '/',
@@ -255,6 +256,7 @@ $(document).ready(function () {
       })
         // Ajaxリクエストが成功した時発動
         .done((data) => {
+
           console.log('create data');
           console.log(data);
           resolve(data);

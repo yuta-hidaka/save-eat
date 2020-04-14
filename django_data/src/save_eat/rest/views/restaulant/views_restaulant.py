@@ -75,7 +75,6 @@ class RestaurantList(generics.ListCreateAPIView):
         'name', 'owner', 'address__prefecture__name', 'address__municipalities__name',
         'comment', 'benefits', 'email', 'limit_to'
     ]
-    # filterset_fields = [
     filter_fields = [
         'name', 'owner', 'address__prefecture', 'user', 'limit_to'
     ]

@@ -24,6 +24,12 @@ class StreetNameSerializer(serializers.ModelSerializer):
 
 
 class AddressSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Address
+        fields = '__all__'
+
+class AddressReadOnlySerializer(serializers.ModelSerializer):
     street_name = StreetNameSerializer()
     municipalities = MunicipalitiesSerializer()
     prefecture = PrefectureSerializer()
@@ -41,7 +47,7 @@ class RestaurantSerializer(QueryFieldsMixin, serializers.ModelSerializer):
 
 
 class RestaurantReadOnlySerializer(QueryFieldsMixin, serializers.ModelSerializer):
-    address = AddressSerializer()
+    address = AddressReadOnlySerializer()
 
     class Meta:
         model = Restaurant
