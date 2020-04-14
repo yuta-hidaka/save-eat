@@ -9,7 +9,6 @@ $(document).ready(function () {
   })
     // Ajaxリクエストが成功した時発動
     .done((data) => {
-      console.log(data);
       let o = data.results[0];
       let adr =
         o.address.prefecture.name +

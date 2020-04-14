@@ -132,7 +132,6 @@ $(document).ready(function () {
             .fadeIn(2000);
         }
 
-        console.log('#' + scrollTarget);
         if (data.next !== null) {
           $('#getNextPage').css('display', '');
           $('#nextPage').val(page + 1);

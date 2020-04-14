@@ -8,8 +8,14 @@ $(document).ready(function () {
   $('#id_web_url').attr('placeholder', 'https://save-eat.me');
   $('#id_phone').attr('placeholder', '00012349281');
   $('#id_email').attr('placeholder', 'info@save-eat.me');
-  $('#id_comment').attr('placeholder', '創業OO年のお店です。カクテルが得意です。コロナの影響で、休業に追い込まれています。');
-  $('#id_benefits').attr('placeholder', '一口5000円で6000円分の飲食が可能です。');
+  $('#id_comment').attr(
+    'placeholder',
+    '創業OO年のお店です。カクテルが得意です。コロナの影響で、休業に追い込まれています。'
+  );
+  $('#id_benefits').attr(
+    'placeholder',
+    '一口5000円で6000円分の飲食が可能です。'
+  );
   $('#id_bank_name').attr('placeholder', 'OOO銀行');
   $('#id_branch').attr('placeholder', 'OOO支店');
   $('#id_account_name').attr('placeholder', 'ヤマダ　タロウ');
@@ -122,15 +128,11 @@ $(document).ready(function () {
         // Ajaxリクエストが成功した時発動
         .done((data) => {
           if (data.count === 0) {
-            console.log(data);
             let postData = { name: target };
             createData(postData, 'prefecture').then((res) => {
-              console.log(res);
               resolve(res.prefecture_id);
             });
           } else {
-            console.log('exsit');
-            console.log(data);
             resolve(data.results[0].prefecture_id);
           }
         })
@@ -154,15 +156,11 @@ $(document).ready(function () {
         // Ajaxリクエストが成功した時発動
         .done((data) => {
           if (data.count === 0) {
-            console.log(data);
             let postData = { name: target };
             createData(postData, 'municipalities').then((res) => {
-              console.log(res);
               resolve(res.municipalities_id);
             });
           } else {
-            console.log('exsit');
-            console.log(data);
             resolve(data.results[0].municipalities_id);
           }
         })
@@ -187,10 +185,8 @@ $(document).ready(function () {
         // Ajaxリクエストが成功した時発動
         .done((data) => {
           if (data.count === 0) {
-            console.log(data);
             let postData = { name: target };
             createData(postData, 'street-name').then((res) => {
-              console.log(res);
               resolve(res.street_name_id);
             });
           } else {
@@ -244,7 +240,6 @@ $(document).ready(function () {
   }
 
   function createData(data, url) {
-    console.log(data);
     return new Promise((resolve, reject) => {
       $.ajax({
         url: '/rest/restaurant/' + url + '/',
@@ -256,9 +251,6 @@ $(document).ready(function () {
       })
         // Ajaxリクエストが成功した時発動
         .done((data) => {
-
-          console.log('create data');
-          console.log(data);
           resolve(data);
         })
         // Ajaxリクエストが失敗した時発動
