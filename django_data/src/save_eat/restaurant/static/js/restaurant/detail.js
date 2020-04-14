@@ -1,6 +1,6 @@
 $(document).ready(function () {
   $.ajax({
-    url: '/rest/restaurant/ro/?restaurant_id=' + restaurant_id,
+    url: '/rest/restaurant/ro/?restaurant_id__gte=' + restaurant_id,
     type: 'GET',
     async: true,
     headers: {

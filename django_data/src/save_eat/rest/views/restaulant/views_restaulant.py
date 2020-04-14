@@ -75,6 +75,7 @@ class RestaurantList(generics.ListCreateAPIView):
         'name', 'owner', 'address__prefecture__name', 'address__municipalities__name',
         'comment', 'benefits', 'email', 'limit_to'
     ]
+    # filterset_fields = [
     filter_fields = [
         'name', 'owner', 'address__prefecture', 'user', 'limit_to'
     ]
@@ -95,10 +96,10 @@ class RestaurantListReadOnly(generics.ListCreateAPIView):
         'comment', 'benefits', 'email', 'limit_to'
     ]
     # filterset_fields = [
-    filter_fields = [
+    # filter_fields = [
 
-        'name', 'owner', 'address__prefecture', 'user', 'restaurant_id', 'limit_to'
-    ]
+    #     'name', 'owner', 'address__prefecture', 'user', 'restaurant', 'limit_to'
+    # ]
     ordering_fields = [
         'name', 'owner', 'address__prefecture', 'user', 'created_at', 'limit_to'
     ]
@@ -107,6 +108,11 @@ class RestaurantListReadOnly(generics.ListCreateAPIView):
     ]
     filter_fields = {
         'limit_to': ['gte', 'lt', 'contains'],
+        'name': ['gte'],
+        'owner': ['gte'],
+        'address__prefecture': ['gte'],
+        'user': ['gte'],
+        'restaurant_id': ['gte'],
     }
     ordering = ['-created_at']
     queryset = Restaurant.objects.all()
