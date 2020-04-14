@@ -67,7 +67,6 @@ $(document).ready(function () {
       })
         // Ajaxリクエストが成功した時発動
         .done((data) => {
-          console.log(data);
           if (data.results) {
             let prefecture = data.results[0].address1;
             let municipalities = data.results[0].address2;
@@ -95,9 +94,6 @@ $(document).ready(function () {
                       street_name: streetName_id,
                     };
                     getOrCreateAddress(addressData).then((v) => {
-                      console.log(v);
-                      console.log(v);
-
                       if (v.created) {
                         address_id = v.data.address_id;
                         $('#id_address').append(
@@ -143,15 +139,11 @@ $(document).ready(function () {
           // Ajaxリクエストが成功した時発動
           .done((data) => {
             if (data.count === 0) {
-              console.log(data);
               let postData = { name: target };
               createData(postData, 'prefecture').then((res) => {
-                console.log(res);
                 resolve(res.prefecture_id);
               });
             } else {
-              console.log('exsit');
-              console.log(data);
               resolve(data.results[0].prefecture_id);
             }
           })
@@ -175,15 +167,11 @@ $(document).ready(function () {
           // Ajaxリクエストが成功した時発動
           .done((data) => {
             if (data.count === 0) {
-              console.log(data);
               let postData = { name: target };
               createData(postData, 'municipalities').then((res) => {
-                console.log(res);
                 resolve(res.municipalities_id);
               });
             } else {
-              console.log('exsit');
-              console.log(data);
               resolve(data.results[0].municipalities_id);
             }
           })
@@ -208,10 +196,8 @@ $(document).ready(function () {
           // Ajaxリクエストが成功した時発動
           .done((data) => {
             if (data.count === 0) {
-              console.log(data);
               let postData = { name: target };
               createData(postData, 'street-name').then((res) => {
-                console.log(res);
                 resolve(res.street_name_id);
               });
             } else {
@@ -276,8 +262,6 @@ $(document).ready(function () {
         })
           // Ajaxリクエストが成功した時発動
           .done((data) => {
-            console.log('create data');
-            console.log(data);
             resolve(data);
           })
           // Ajaxリクエストが失敗した時発動
