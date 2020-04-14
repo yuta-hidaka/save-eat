@@ -1,6 +1,7 @@
 from django.db import models
 import uuid
 from users.models import CustomUser
+from datetime import datetime
 # Create your models here.
 
 
@@ -129,55 +130,9 @@ class Address(models.Model):
     def __str__(self):
         return self.zip_code
 
-
-# 口座情報
-class BankAccount(models.Model):
-    bank_account_id = models.UUIDField(
-        primary_key=True,
-        default=uuid.uuid4,
-        editable=False
-    )
-    bank_name = models.CharField(
-        default='',
-        max_length=256,
-        verbose_name='銀行名'
-    )
-    branch = models.CharField(
-        default='',
-        max_length=256,
-        verbose_name='支店名'
-    )
-    account_name = models.CharField(
-        default='',
-        max_length=256,
-        verbose_name='口座人名義'
-    )
-    account_num = models.CharField(
-        default='',
-        max_length=256,
-        verbose_name='口座番号'
-    )
-    account_type = models.CharField(
-        default='',
-        max_length=256,
-        verbose_name='口座種別'
-    )
-    created_at = models.DateTimeField(
-        auto_now_add=True
-    )
-    updated_at = models.DateTimeField(
-        auto_now=True
-    )
-
-    class Meta:
-        db_table = 'restaurant_bank_account'
-        verbose_name_plural = '口座情報'
-
-    def __str__(self):
-        return self.account_name
-
-
 # 店舗情報
+
+
 class Restaurant(models.Model):
     restaurant_id = models.UUIDField(
         primary_key=True,
@@ -190,27 +145,27 @@ class Restaurant(models.Model):
         null=True,
         blank=True,
         on_delete=models.CASCADE,
-        verbose_name='登録ユーザー名'
+        verbose_name='登録ユーザー名<必須>)'
     )
     name = models.CharField(
         max_length=100,
-        verbose_name='レストラン名'
+        verbose_name='レストラン名<必須>'
     )
     owner = models.CharField(
         default='',
         max_length=100,
-        verbose_name='オーナ名'
+        verbose_name='オーナ名<必須>'
     )
     address = models.ForeignKey(
         Address,
         default=None,
         on_delete=models.CASCADE,
-        verbose_name='住所(町名まで)'
+        verbose_name='住所(町名まで)<必須>'
     )
     street_num = models.CharField(
         default='',
         max_length=256,
-        verbose_name='番地'
+        verbose_name='番地<必須>'
     )
     bldg = models.CharField(
         default='',
@@ -230,19 +185,17 @@ class Restaurant(models.Model):
         max_length=256,
         null=True,
         blank=True,
-        verbose_name='電話番号'
+        verbose_name='電話番号<必須>'
     )
     email = models.EmailField(
         default='',
         max_length=256,
-        null=True,
-        blank=True,
         verbose_name='メールアドレス'
     )
     comment = models.TextField(
         default='',
         max_length=500,
-        verbose_name='お店からのコメント'
+        verbose_name='お店からのコメント<必須>'
     )
     benefits = models.TextField(
         default='',
@@ -259,27 +212,31 @@ class Restaurant(models.Model):
     bank_name = models.CharField(
         default='',
         max_length=256,
-        verbose_name='銀行名'
+        verbose_name='銀行名<必須>'
     )
     branch = models.CharField(
         default='',
         max_length=256,
-        verbose_name='支店名'
+        verbose_name='支店名<必須>'
     )
     account_name = models.CharField(
         default='',
         max_length=256,
-        verbose_name='口座人名義'
+        verbose_name='口座人名義<必須>'
     )
     account_num = models.CharField(
         default='',
         max_length=256,
-        verbose_name='口座番号'
+        verbose_name='口座番号<必須>'
     )
     account_type = models.CharField(
         default='',
         max_length=256,
-        verbose_name='口座種別'
+        verbose_name='口座種別<必須>'
+    )
+    limit_to = models.DateField(
+        default=datetime.now,
+        verbose_name='支援受付期限<必須>'
     )
     created_at = models.DateTimeField(
         auto_now_add=True

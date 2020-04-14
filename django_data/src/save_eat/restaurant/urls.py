@@ -16,15 +16,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from . import views
+from django.contrib.auth.decorators import login_required, permission_required
 app_name = 'restaurant'
 urlpatterns = [
     path('', views.IndexView, name='index'),
     path('search/', views.SerchView, name='search'),
+    path('privacyPolicy/', views.PrivacyPolicyView, name='privacy-policy'),
+    path('userPolicy/', views.UserPolicyView, name='user-policy'),
     path('register/', views.RegisterView, name='register'),
     path('restaurant/<uuid:restaurant_id>/',
          views.RestaurantDetailView, name='detail'),
-    path('restaurant/history/',
-         views.HistoryView, name='history'),
-    path('restaurant/edit/',
-         views.EditView, name='edit'),
+    path('restaurant/history/',  views.HistoryView, name='history'),
+    path('restaurant/edit/<uuid:id>/',
+         login_required(views.RestaurantUpdate.as_view()), name='edit'),
 ]

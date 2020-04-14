@@ -1,12 +1,15 @@
 {# Load the tag library #} {% load bootstrap4 %} {# Load CSS and JavaScript #}
 {% bootstrap_css %} {% bootstrap_javascript jquery='full' %}
+{% load static %}
 
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.svg' %}" />
     <title>{% block head_title %}{% endblock %}</title>
+    <meta name="description" content="多くの飲食店が支援などを必要としています。行きつけのお店を支援するためににこのサイトをご活用ください。使用に際して手数料や料金の発生はありません。">
     {% block extra_head %} {% endblock %} {% load static %}
-    <script type="text/javascript" src="{% static 'js/common.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/restaurant/common.js' %}"></script>
     <link
       rel="stylesheet"
       type="text/css"
@@ -51,6 +54,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             {% if user.is_authenticated %}
+            <input type="hidden" id="userId" value="{{ user.id }}">
             <li class="nav-item">
               <a class="nav-link" href="{% url 'restaurant:search' %}"
                 >支援先のお店を探す</a
@@ -106,9 +110,13 @@
       </main>
       {% endblock %}
     </div>
-    <footer id="sticky-footer" class="">
-      <div class="text-center">
-        <small>Copyright &copy; Save Eat</small>
+    <footer class="mb-5 text-muted">
+      <div class="container text-center">
+        <p class="d-inline">© Save Eat</p>
+        <span> | </span>
+        <a class="d-inline" href="/privacyPolicy">プライバシーポリシー</a>
+        <span> | </span>
+        <a class="d-inline" href="/userPolicy">利用規約</a>
       </div>
     </footer>
   </body>

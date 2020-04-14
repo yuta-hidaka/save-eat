@@ -1,41 +1,146 @@
-{% extends "account/base.html" %}
-{% load i18n %}
-{% load static %}
-{% block head_title %}
-{% trans　"支援先を検索する" %}
-{% endblock %}
-{% block content %}
-<div class="container">
-    <div class="row justify-content-md-center mt-5">
-        <div class="w-100 m-3" style="max-width: 500px;">
-            <div class="card bg-light mb-3 w-100" style="">
-                <h5 class="card-header">支援先の検索</h5>
-                <div class="card-body">
-                    <div class="m-auto text-center">
-                    {% csrf_token %} {% if redirect_field_value %}
-                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-                    {% endif %}
-                    <input type="text" id="serchText" placeholder="新宿 居酒屋OO" />
-                    <input type="hidden" id="nextPage" value=1 />
-                    <input type="hidden" id="defaultImg" value="{% static 'img/default1.jpg' %}"/>
-                    <select class="mt-3 form-control" id="serchPrefecture" >
-                    <option selected value="">都道府県を絞る</option>
-                        
-                    </select>
-                    <button class="mt-3 w-100 btn btn-outline-info" id="serch" type="button">
-                        {% trans '検索' %}
-                    </button>
-                </div>
-            </div>
-        </div>
+{% extends "account/base.html" %} {% load i18n %} {% load static %} 
+{% block head_title %} {% trans　"支援先の詳細" %} {% endblock %} {% block content %}
+<script
+  type="text/javascript"
+  src="{% static 'js/restaurant/detail.js' %}"
+></script>
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/social_icons.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'fontawsome/css/font-awesome.min.css' %}" />
+<input type="hidden" id="defaultImg" value="{% static 'img/default1.jpg' %}" />
+<div class="w-100"></div>
+<div class="card-deck m-auto  justify-content-md-center" style="max-width: 800px;">
+  <div class="card m-5 shadow">
+    <img id="phot" src="" class="card-img-top" alt="shop phot" />
+    <div class="card-body">
+      <!-- お店の名前 -->
+      <h6 class="text-muted center-border">Shop Name<span class=""></span></h6>
+      <h5 class="card-title" id="shopName"></h5>
+      <!-- お店のオーナー -->
+      <p class="text-muted center-border">Owner</p>
+      <p id="owner"></p>
+      <!-- 一言コメント -->
+      <p class="text-muted center-border">Comment</p>
+      <p class="card-text" id="comment"></p>
+      <!--特典-->
+      <p class="text-muted center-border">Benefit</p>
+      <p class="card-text" id="benefit"></p>
+      <p class="text-muted center-border">Share This Page</p>
+      <div class=" mb-5">
+          <ul class="social-icons text-center">
+        <li>
+          <a id="LinkFacebook" href="" class="social-icon">
+            <i class="fa fa-facebook"></i
+          ></a>
+        </li>
+        <li>
+          <a id="LinkTwitter" href="" class="social-icon">
+            <i class="fa fa-twitter"></i
+          ></a>
+        </li>
+      </ul>
+      </div>
+
+
+      <table class="table">
+        <thead>
+        </thead>
+        <tbody>
+          <tr>
+            <td>郵便番号</td>
+            <td id="zipCode"></td>
+          </tr>
+          <tr>
+            <td>住所</td>
+            <td id="address"></td>
+          </tr>
+          <tr>
+            <td>電話番号</td>
+            <td id="phone"></td>
+          </tr>
+          <tr>
+            <td>メールアドレス</td>
+            <td id="email"></td>
+          </tr><tr>
+            <td>ウェブサイト</td>
+            <td id="webSite"></td>
+          </tr><tr>
+            <td>支援期限</td>
+            <td id="limitTo"></td>
+          </tr>
+          <tr>
+            <td>入金口座</td>
+            <td><button id="showAccountInfo" class="btn btn-outline-danger">口座情報を見る</button></td>
+          </tr>
+        </tbody>
+      </table>
+
+
+
+      <div class="card-footer">
+        <!-- 住所 -->
+        <small class="text-muted">
+          <span id="prefecture"></span> | <span id="municipalities"></span>
+
+          <br />
+          <span id="createdAt"></span>
+        </small>
+      </div>
     </div>
+  </div>
 </div>
-<div id="serchResult">
 
+    <div id="accountInfo" style="display: none;" class="mt-5 mb-5 w-100">
+      <div class="m-auto" style="max-width: 500px;">
+        <div class="card bg-light mb-3">
+          <h5 class="card-header" id="name">口座情報</h5>
+          <div class="card-body">
+            <!-- コメント・特典 -->
 
+            <!-- 基本情報 -->
+
+            <!-- 口座情報 -->
+          <table class="table">
+            <thead>
+              <tr>
+                <th colspan="2">口座情報</th>
+              </tr>
+            </thead>
+              <tbody>
+                <tr>
+                  <td>銀行名</td>
+                  <td id="bankName"></td>
+                </tr>
+                <tr>
+                  <td>支店名</td>
+                  <td id="branch"></td>
+                </tr>
+                <tr>
+                  <td>口座人名義</td>
+                  <td id="accountName"></td>
+                </tr>
+                <tr>
+                  <td>口座番号</td>
+                  <td id="accountNum"></td>
+                </tr>
+                <tr>
+                  <td>口座種別</td>
+                  <td id="accountType"></td>
+                </tr>
+              </tbody>
+            </table>
+            <small class="text-danger"
+              >【注意】不正防止のため、入金前に実在するお店か、顔見知りのお店かを、口座人名義とオーナー、屋号が同じか等確認してください。</small
+            >
+          </div>
+          <div style="min-height: 500px;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    var restaurant_id= '{{data | escapejs}}';
+  </script>
+
+  {% endblock %}
 </div>
-<script>
-    var jsonObject = JSON.parse('{{data | escapejs}}');
-</script>
-
-{% endblock %}

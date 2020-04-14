@@ -5,7 +5,10 @@ django-bootstrap4
 django-allauth
 django-rest-auth
 django-filter
+django-url-filter
 django-crispy-forms
+django-url-filter
+djangorestframework-queryfields
 pymysql
 gunicorn
 ptvsd

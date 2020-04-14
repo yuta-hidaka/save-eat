@@ -4,6 +4,8 @@ from rest_framework.views import APIView
 from restaurant.models import *
 from ...serializer.serializer_restaulant import *
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import permissions
+from ...permissions import IsOwnerOrReadOnly
 
 # -----------------------------------------------------------------------
 
@@ -68,30 +70,22 @@ class AddressList(generics.ListCreateAPIView):
 
 
 # -----------------------------------------------------------------------
-class BankAccountList(generics.ListCreateAPIView):
-    search_fields = '__all__'
-    filter_fields = '__all__'
-    filterset_fields = '__all__'
-    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
-    queryset = BankAccount.objects.all()
-    serializer_class = BankAccountSerializer
-
-
-# class BankAccountDetail(generics.RetrieveUpdateDestroyAPIView):
-#     queryset = BankAccount.objects.all()
-#     serializer_class = BankAccountSerializer
-
-
-# -----------------------------------------------------------------------
 class RestaurantList(generics.ListCreateAPIView):
     search_fields = [
         'name', 'owner', 'address__prefecture__name', 'address__municipalities__name',
-        'comment', 'benefits', 'email'
+        'comment', 'benefits', 'email', 'limit_to'
     ]
-    filterset_fields = [
-        'name', 'owner'
+    # filterset_fields = [
+    filter_fields = [
+        'name', 'owner', 'address__prefecture', 'user', 'limit_to'
     ]
-    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
+    ordering_fields = [
+        'name', 'owner', 'address__prefecture', 'user', 'created_at', 'limit_to'
+    ]
+    filter_backends = [
+        DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter
+    ]
+    ordering = ['-created_at']
     queryset = Restaurant.objects.all()
     serializer_class = RestaurantSerializer
 
@@ -99,16 +93,30 @@ class RestaurantList(generics.ListCreateAPIView):
 class RestaurantListReadOnly(generics.ListCreateAPIView):
     search_fields = [
         'name', 'owner', 'address__prefecture__name', 'address__municipalities__name',
-        'comment', 'benefits', 'email'
+        'comment', 'benefits', 'email', 'limit_to'
     ]
-    filterset_fields = [
-        'name', 'owner', 'address__prefecture'
+    # filterset_fields = [
+    filter_fields = [
+
+        'name', 'owner', 'address__prefecture', 'user', 'restaurant_id', 'limit_to'
     ]
-    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
+    ordering_fields = [
+        'name', 'owner', 'address__prefecture', 'user', 'created_at', 'limit_to'
+    ]
+    filter_backends = [
+        DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter
+    ]
+    filter_fields = {
+        'limit_to': ['gte', 'lt', 'contains'],
+    }
+    ordering = ['-created_at']
     queryset = Restaurant.objects.all()
     serializer_class = RestaurantReadOnlySerializer
 
 
-# class RestaurantDetail(generics.RetrieveUpdateDestroyAPIView):
-#     queryset = Restaurant.objects.all()
-#     serializer_class = RestaurantSerializer
+class RestaurantDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Restaurant.objects.all()
+    serializer_class = RestaurantSerializer
+    permission_classes = [
+        permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly
+    ]

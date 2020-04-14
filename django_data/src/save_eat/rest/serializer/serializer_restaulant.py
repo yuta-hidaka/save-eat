@@ -2,6 +2,7 @@ from django.db import models
 import uuid
 from restaurant.models import *
 from rest_framework import serializers
+from drf_queryfields import QueryFieldsMixin
 
 
 class PrefectureSerializer(serializers.ModelSerializer):
@@ -32,20 +33,14 @@ class AddressSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class BankAccountSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = BankAccount
-        fields = '__all__'
-
-
-class RestaurantSerializer(serializers.ModelSerializer):
+class RestaurantSerializer(QueryFieldsMixin, serializers.ModelSerializer):
 
     class Meta:
         model = Restaurant
         fields = '__all__'
 
 
-class RestaurantReadOnlySerializer(serializers.ModelSerializer):
+class RestaurantReadOnlySerializer(QueryFieldsMixin, serializers.ModelSerializer):
     address = AddressSerializer()
 
     class Meta:

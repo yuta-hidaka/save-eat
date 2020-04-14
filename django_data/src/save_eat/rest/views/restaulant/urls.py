@@ -14,11 +14,11 @@ urlpatterns = [
         RestaurantListReadOnly.as_view(),
         name='restaulant-list-read-only'
     ),
-    # path(
-    #     '<uuid:pk>/',
-    #     RestaurantDetail.as_view(),
-    #     name='restaulant-list'
-    # ),
+    path(
+        '<uuid:pk>/',
+        RestaurantDetail.as_view(),
+        name='restaulant-list'
+    ),
     # ---------------------------------------------------------
     path(
         'prefecture/',
@@ -64,14 +64,4 @@ urlpatterns = [
     #     name='zip-code-detail'
     # ),
     # ---------------------------------------------------------
-    path(
-        'bank-account/',
-        BankAccountList.as_view(),
-        name='bank-account-list'
-    ),
-    # path(
-    #     'bank-account/<uuid:pk>/',
-    #     BankAccountList.as_view(),
-    #     name='bank-account-detail'
-    # ),
 ]

@@ -25,18 +25,18 @@ SECRET_KEY = '2=i&+0ot0wla5&u2l#af7psec2mt=$fi^v1ab6ks)*1op!f)9q'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['python-django',
+ALLOWED_HOSTS = ['python-django','save-eat.me'
                  ]
 # メール送信機能
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # メールサーバーへの接続設定
 EMAIL_HOST = 'smtp.muumuu-mail.com'
 EMAIL_PORT = 465
-EMAIL_HOST_USER = 'info@bike-nenpi.com'
+EMAIL_HOST_USER = 'info@save-eat.me'
 EMAIL_HOST_PASSWORD = 'souldout322'
 EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
-DEFAULT_FROM_EMAIL = 'no-replay@bike-nenpi.com'
+DEFAULT_FROM_EMAIL = 'no-replay@save-eat.me'
 
 # Application definition
 
@@ -71,7 +71,7 @@ INSTALLED_APPS = [
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 12,
+    'PAGE_SIZE': 3,
     'DEFAULT_THROTTLE_CLASSES': [
         'rest_framework.throttling.AnonRateThrottle',
         'rest_framework.throttling.UserRateThrottle'

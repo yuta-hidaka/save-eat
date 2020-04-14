@@ -1,10 +1,9 @@
 from django.contrib import admin
-from .models import Prefecture, Municipalities, StreetName, Address, BankAccount, Restaurant
+from .models import Prefecture, Municipalities, StreetName, Address,  Restaurant
 admin.site.register(Prefecture)
 admin.site.register(Municipalities)
 admin.site.register(StreetName)
 admin.site.register(Address)
-admin.site.register(BankAccount)
 admin.site.register(Restaurant)
 
 

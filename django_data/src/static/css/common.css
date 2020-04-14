@@ -1,9 +1,29 @@
-footer {
-  display: block;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  height: 20px;
-  color: #999999;
-  background-color: #0d61a7;
+
+.center-border {
+  overflow: hidden;
+  text-align: left;
+}
+
+.center-border:before {
+  right: 0.5em;
+  margin-left: 0%;
+  background-color: #6c757d;
+  content: '';
+  display: inline-block;
+  height: 1px;
+  position: relative;
+  vertical-align: middle;
+  width: 3%;
+}
+
+.center-border:after {
+  left: 0.5em;
+  margin-right: -50%;
+  background-color: #6c757d;
+  content: '';
+  display: inline-block;
+  height: 1px;
+  position: relative;
+  vertical-align: middle;
+  width: 97%;
 }

@@ -1,5 +1,5 @@
-{% extends "account/base.html" %} {% load i18n %} {% block head_title %}{% trans
-"Signup" %}{% endblock %} {% block content %}
+{% extends "account/base.html" %} {% load i18n %} {% block head_title %}
+{% trans "Signup" %}{% endblock %} {% block content %}
 
 <div class="container">
   <div class="row justify-content-md-center mt-5">
@@ -7,12 +7,12 @@
       <div class="card bg-light mb-3" style="max-width: 25rem;">
         <h5 class="card-header">{% trans "Sign Up" %}</h5>
         <div class="card-body">
-          <div class="m-auto text-center">
+          <div class="m-auto text-center"><p style="font-size: small;">
+            アカウントをお持ちの方はこちらから<a href="{{ login_url }}">ログイン</a>できます。
+          </p>
             <p style="font-size: small;">
-              {% blocktrans %}Already have an account? Then please
-              <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}
+              ※登録後に支援してほしいお店を登録できます。
             </p>
-
             <form
               class="signup"
               id="signup_form"
