@@ -1,4 +1,22 @@
 $(document).ready(function () {
+  // placehoplderの追加
+
+  $('#id_name').attr('placeholder', 'Bar OOOO');
+  $('#id_owner').attr('placeholder', '山田　太郎');
+  $('#id_street_num').attr('placeholder', '兜通り 1-2-3');
+  $('#id_bldg').attr('placeholder', '兜ビル');
+  $('#id_web_url').attr('placeholder', 'https://save-eat.me');
+  $('#id_phone').attr('placeholder', '00012349281');
+  $('#id_email').attr('placeholder', 'info@save-eat.me');
+  $('#id_comment').attr('placeholder', '創業OO年のお店です。カクテルが得意です。コロナの影響で、休業に追い込まれています。');
+  $('#id_benefits').attr('placeholder', '一口5000円で6000円分の飲食が可能です。');
+  $('#id_bank_name').attr('placeholder', 'OOO銀行');
+  $('#id_branch').attr('placeholder', 'OOO支店');
+  $('#id_account_name').attr('placeholder', 'ヤマダ　タロウ');
+  $('#id_account_num').attr('placeholder', '123498761234');
+  $('#id_account_type').attr('placeholder', '普通');
+  $('#id_limit_to').attr('type', 'date');
+
   function getCookie(c_name) {
     if (document.cookie.length > 0) {
       c_start = document.cookie.indexOf(c_name + '=');

@@ -6,10 +6,10 @@
 
 {% block content %}
 {% if user.emailaddress_set.all %}
-<div class="container">
+<div class="container" style="max-width: 500px;">
   <div class="row justify-content-md-center mt-5">
-    <div class="w-100 m-3" style="max-width: 500px;">
-      <div class="card bg-light mb-3 w-100" style="">
+    <div class="w-100 m-3">
+      <div class="card bg-light mb-3 w-100">
         <h6 class="card-header">{% trans 'The following e-mail addresses are associated with your account:' %}</h6>
         <div class="card-body">
           <div class="m-auto text-center">
