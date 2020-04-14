@@ -33,15 +33,21 @@ $(document).ready(function () {
         new Date(o.created_at),
         'yyyy年MM月dd日 hh:mm'
       );
+
+      if (o.benefits) {
+        o.benefits = o.benefits.replace(new RegExp('\r?\n', 'g'));
+      } else {
+        o.benefits = 'なし';
+      }
       let limitTo = dateFormat.format(new Date(o.limit_to), 'yyyy年MM月dd日');
       $('#shopName').html(o.name);
       $('#prefecture').html(o.address.prefecture.name);
       $('#municipalities').html(o.address.municipalities.name);
       $('#limit').html(o.limit);
       $('#owner').html(o.owner);
-      $('#comment').html(o.comment);
+      $('#comment').html(o.comment.replace(new RegExp('\r?\n', 'g'), '<br />'));
       $('#phot').attr('src', o.phot);
-      $('#benefit').html(o.benefit ? o.benefit : 'なし');
+      $('#benefit').html(o.benefits);
       $('#LinkFacebook').attr('href', LinkFacebook);
       $('#LinkTwitter').attr('href', LinkTwitter);
       $('#zipCode').html(o.address.zip_code);
