@@ -12,7 +12,7 @@ $(document).ready(function () {
     let scrollTarget = 'scrollTarget' + page;
     $.ajax({
       url:
-        '/rest/restaurant/ro/?fields=phot,owner,name,restaurant_id,created_at,address,comment&user__gte=' +
+        '/rest/restaurant/ro/?fields=phot,owner,name,restaurant_id,created_at,address,comment&user=' +
         userId +
         '&page=' +
         page,

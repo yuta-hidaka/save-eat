@@ -8,6 +8,7 @@ django-filter
 django-url-filter
 django-crispy-forms
 django-url-filter
+django-static-md5url
 djangorestframework-queryfields
 pymysql
 gunicorn

@@ -107,12 +107,12 @@ class RestaurantListReadOnly(generics.ListCreateAPIView):
         DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter
     ]
     filter_fields = {
-        'limit_to': ['gte', 'lt', 'contains'],
-        'name': ['gte'],
-        'owner': ['gte'],
-        'address__prefecture': ['gte'],
-        'user': ['gte'],
-        'restaurant_id': ['gte'],
+        'limit_to': ['gte', 'lt', 'contains', 'exact'],
+        'name': ['gte', 'exact'],
+        'owner': ['gte', 'exact'],
+        'address__prefecture': ['gte', 'exact'],
+        'user': ['gte', 'exact'],
+        'restaurant_id': ['gte', 'exact'],
     }
     ordering = ['-created_at']
     queryset = Restaurant.objects.all()
