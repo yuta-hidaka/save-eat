@@ -139,7 +139,8 @@ $(document).ready(function () {
                 '</div>'
             )
             .hide()
-            .fadeIn(2000);
+            .fadeIn(500);
+          cardBody = '';
         }
 
         if (data.next !== null) {
@@ -172,6 +173,7 @@ $(document).ready(function () {
 
   // 検索処理
   $('#serch').on('click', function () {
+    console.log('hi');
     $('#getNextPage').css('display', '');
     $('#nextPage').val(1);
     $('#serchResult').empty();
@@ -182,6 +184,7 @@ $(document).ready(function () {
   $(document).keypress(function (event) {
     var keycode = event.keyCode ? event.keyCode : event.which;
     if (keycode == '13') {
+      console.log('hifd');
       $('#getNextPage').css('display', '');
       $('#nextPage').val(1);
       $('#serchResult').empty();
@@ -189,7 +192,48 @@ $(document).ready(function () {
     }
   });
 
-  // 履歴表示
+  getPrefectureList();
+  // 都道府県一覧取得
+  function getPrefectureList() {
+    let page = 1;
+    let prefectureList = null;
+
+    function getNextData() {
+      $.ajax({
+        url: '/rest/restaurant/prefecture/?page=' + page,
+        type: 'GET',
+        async: true,
+        headers: {
+          'X-CSRFToken': csrftoken,
+        },
+      })
+        // Ajaxリクエストが成功した時発動
+        .done((data) => {
+          data.results.forEach((v) => {
+            $('#serchPrefecture').append(
+              $(
+                '<option value="' +
+                  v.prefecture_id +
+                  '">' +
+                  v.name +
+                  '</option>'
+              )
+            );
+            // serchText;
+          });
+          page++;
+          if (data.next !== null) {
+            getNextData();
+          }
+        })
+        // Ajaxリクエストが失敗した時発動
+        .fail((data) => {
+          alert('エラーが発生しました。再度画面を読み込んでお試しください');
+          console.log(data);
+        });
+    }
+    getNextData();
+  }
 });
 
 //
