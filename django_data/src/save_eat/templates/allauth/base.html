@@ -5,7 +5,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.svg' %}" />
+    <link rel="shortcut icon" type="image/svg" href="{% static 'img/favicon.svg' %}" />
+    <link rel="apple-touch-icon" sizes="180x180" type="image/svg" href="{% static 'img/favicon.svg' %}" />
+    <link rel="icon" type="image/svg" href="{% static 'img/favicon.svg' %}" />
+
+
+
     <title>{% block head_title %}{% endblock %}</title>
     <meta name="description" content="多くの飲食店が支援などを必要としています。行きつけのお店を支援するためににこのサイトをご活用ください。使用に際して手数料や料金の発生はありません。Barや居酒屋、レストラン等の飲食店経営を応援します。">
     <meta name="viewport" content="width=device-width, initial-scale=1">
