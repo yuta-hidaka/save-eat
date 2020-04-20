@@ -30,6 +30,7 @@ $(document).ready(function () {
           } else {
             v.phot = v.phot.replace('python-django:8080', 'localhost');
             v.phot = v.phot.replace('http://python-django:4040', '');
+            console.log(v.phot);
           }
 
           let comment = v.comment;
