@@ -44,6 +44,7 @@ $(document).ready(function () {
             v.phot = $('#defaultImg').val();
           } else {
             v.phot = v.phot.replace('python-django:8080', 'localhost');
+            v.phot = v.phot.replace('http://python-django:4040', '');
           }
 
           let comment = v.comment;
@@ -60,11 +61,12 @@ $(document).ready(function () {
             new Date(v.limit_to),
             'yyyy年MM月dd日'
           );
+          let phot = v.phot.replace('http://', 'https://');
           cardBody =
             cardBody +
             '<div class="card m-2 shadow">' +
             '<img src="' +
-            v.phot +
+            phot +
             '" class="card-img-top" alt="phot">' +
             '<div class="card-body">' +
             '<!-- お店の名前 -->' +
