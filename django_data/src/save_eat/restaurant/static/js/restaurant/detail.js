@@ -28,6 +28,7 @@ $(document).ready(function () {
         o.phot = $('#defaultImg').val();
       } else {
         o.phot = o.phot.replace('python-django:8080', 'localhost');
+        o.phot = o.phot.replace('python-django:4040', '');
       }
       let createdAt = dateFormat.format(
         new Date(o.created_at),
@@ -46,7 +47,7 @@ $(document).ready(function () {
       $('#limit').html(o.limit);
       $('#owner').html(o.owner);
       $('#comment').html(o.comment.replace(/(?:\r\n|\r|\n)/g, '<br>'));
-      $('#phot').attr('src', o.phot);
+      $('#phot').attr('src', phot);
       $('#benefit').html(o.benefits);
       $('#LinkFacebook').attr('href', LinkFacebook);
       $('#LinkTwitter').attr('href', LinkTwitter);
