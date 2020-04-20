@@ -34,7 +34,7 @@ $(document).ready(function () {
             v.phot = $('#defaultImg').val();
           } else {
             v.phot = v.phot.replace('python-django:8080', 'localhost');
-            v.phot = o.phot.replace('python-django:4040', '');
+            v.phot = v.phot.replace('http://python-django:4040', '');
           }
           let createdAt = dateFormat.format(
             new Date(v.created_at),
