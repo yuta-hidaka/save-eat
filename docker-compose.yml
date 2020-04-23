@@ -12,6 +12,7 @@ services:
       gunicorn ${DJANGO_APP_NAME}.wsgi:application --chdir /code/${DJANGO_APP_NAME} -w 2 -b :${DJANGO_PORT} ${GUNICORN_CMD_ARGS}'
     ports:
       - ${DJANGO_PORT}
+      - ${DJANGO_DEBUG_PORT}:${DJANGO_DEBUG_PORT}
     depends_on:
       - mariadb
     volumes:
@@ -75,7 +76,6 @@ services:
   #   ports:
   #     - ${REACT_OUTSIDE_PORT}:${REACT_PORT}
   #   restart: always
-    
 
 volumes:
   mariadb_data:
